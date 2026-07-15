@@ -1,0 +1,10 @@
+2026-06-29 12:32:17,113 [INFO] === Debut traitement : IPS_DGI_LR1-INFOS_23.02.2026.csv ===
+2026-06-29 12:32:17,174 [INFO]   Connexion PostgreSQL OK
+2026-06-29 12:32:17,236 [INFO]   Commit effectue — 25 lignes inserees en base
+2026-06-29 12:32:17,237 [INFO]   Fichier original archive : C:\avis-sort-DGI\avis-sort-DGI\src\main\resources\REP\ARCHIVE\IPS_DGI_LR1-INFOS_23.02.2026.csv
+2026-06-29 12:32:17,237 [INFO]   Lignes lues      : 25
+2026-06-29 12:32:17,237 [INFO]   Lignes inserees  : 25
+2026-06-29 12:32:17,237 [INFO]   Doublons ignores : 0
+2026-06-29 12:32:17,238 [INFO]   Lignes ignorees  : 0
+2026-06-29 12:32:17,238 [INFO] === Traitement termine : IPS_DGI_LR1-INFOS_23.02.2026.csv ===
+2026-06-29 12:32:17,238 [INFO]   Connexion PostgreSQL fermee
