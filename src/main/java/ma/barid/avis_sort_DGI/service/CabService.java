@@ -40,4 +40,8 @@ public class CabService {
         cab.setStatut(statut);
         return cabRepository.save(cab);
     }
+
+    public void deleteCab(Long id) {
+        cabRepository.deleteById(id);
+    }
 }

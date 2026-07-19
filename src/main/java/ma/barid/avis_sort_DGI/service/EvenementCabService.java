@@ -8,6 +8,8 @@ import ma.barid.avis_sort_DGI.repository.CabRepository;
 import ma.barid.avis_sort_DGI.repository.EvenementCabRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +21,9 @@ public class EvenementCabService {
 
     @Autowired
     private CabRepository cabRepository;
+
+    @Autowired
+    private ExportCsvService exportCsvService;
 
     public EvenementCab ajouterEvenement(Long cabId, Evenement evenement) {
 
@@ -51,8 +56,15 @@ public class EvenementCabService {
         nouvelEvenement.setCab(cab);
         nouvelEvenement.setEvenement(evenement);
         nouvelEvenement.setDateEvenement(LocalDateTime.now());
+        EvenementCab saved = evenementCabRepository.save(nouvelEvenement);
 
-        return evenementCabRepository.save(nouvelEvenement);
+        try {
+            exportCsvService.exporterVersDGI();
+        } catch (IOException e) {
+            System.err.println("Erreur generation REP/OUT : " + e.getMessage());
+        }
+
+        return saved;
     }
 
     public List<EvenementCab> getEvenementsByCabId(Long cabId) {
