@@ -4,6 +4,7 @@ import ma.barid.avis_sort_DGI.config.JwtService;
 import ma.barid.avis_sort_DGI.dto.*;
 import ma.barid.avis_sort_DGI.entity.User;
 import ma.barid.avis_sort_DGI.repository.UserRepository;
+import ma.barid.avis_sort_DGI.util.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class AuthService {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private EmailService emailService;
 
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
@@ -38,12 +42,26 @@ public class AuthService {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new RuntimeException("Username déjà utilisé");
         }
+
+        String motDePasseGenere = PasswordGenerator.generate(10);
+
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPassword(passwordEncoder.encode(motDePasseGenere));
         user.setEmail(request.getEmail());
         user.setRole(request.getRole());
         userRepository.save(user);
-        return "Utilisateur créé avec succès";
+
+        System.out.println("Utilisateur enregistré");
+
+        emailService.envoyerIdentifiants(
+                request.getEmail(),
+                request.getUsername(),
+                motDePasseGenere,
+                request.getRole().name()
+        );
+        System.out.println("Méthode email appelée");
+
+        return "Utilisateur créé avec succès. Envoi des identifiants en cours.";
     }
 }

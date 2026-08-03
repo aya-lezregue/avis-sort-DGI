@@ -44,4 +44,14 @@ public class CabService {
     public void deleteCab(Long id) {
         cabRepository.deleteById(id);
     }
+
+    public Cab updateStatutByNumeroCab(String numeroCab, String statut) {
+
+        Cab cab = cabRepository.findByNumeroCab(numeroCab)
+                .orElseThrow(() -> new RuntimeException("CAB non trouvé : " + numeroCab));
+
+        cab.setStatut(statut);
+
+        return cabRepository.save(cab);
+    }
 }

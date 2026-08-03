@@ -35,6 +35,7 @@ public class EvenementCabService {
             case DISTRIBUE  -> {
                 cab.setStatut("DISTRIBUE");
                 cab.setFlagIps(FlagIps.EXISTE);
+                cab.setDateLivraison(LocalDateTime.now());
             }
             case RETOURNE   -> {
                 cab.setStatut("RETOURNE");

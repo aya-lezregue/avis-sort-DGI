@@ -22,6 +22,7 @@ public class CabController {
     @Autowired
     private CabService cabService;
 
+
     // GET tous les CABs
     @GetMapping
     public List<Cab> getAllCabs() {
@@ -61,6 +62,12 @@ public class CabController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/traiter/{nomFichier}")
+    public ResponseEntity<CsvImportResult> traiterFichier(@PathVariable String nomFichier) throws IOException {
+        CsvImportResult result = csvImportService.traiterFichierDepuisIn(nomFichier);
+        return ResponseEntity.ok(result);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCab(@PathVariable Long id) {
         cabService.deleteCab(id);
@@ -79,4 +86,15 @@ public class CabController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/numero/{numeroCab}/statut")
+    public ResponseEntity<Cab> updateStatutByNumeroCab(
+            @PathVariable String numeroCab,
+            @RequestParam String statut) {
+
+        return ResponseEntity.ok(
+                cabService.updateStatutByNumeroCab(numeroCab, statut)
+        );
+    }
+
 }

@@ -26,6 +26,7 @@ public class Cab {
     private String identifiantFiscal;
     private LocalDate dateEcheance;
     private LocalDateTime dateImport;
+    private LocalDateTime dateLivraison;
 
     @Enumerated(EnumType.STRING)
     private FlagIps flagIps;
