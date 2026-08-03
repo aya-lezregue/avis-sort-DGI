@@ -1,0 +1,66 @@
+﻿
+### Angular / Node ###
+node_modules/
+dist/
+.angular/
+*.log
+npm-debug.log*
+.npm/
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+.ipynb_checkpoints/
+
+### Secrets / Env ###
+.env
+.env.*
+*.local
+application-local.properties
+application-secret.yml
+application-dev.yml
+
+### OS ###
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+### Angular / Node ###
+node_modules/
+dist/
+.angular/
+*.log
+npm-debug.log*
+.npm/
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+.ipynb_checkpoints/
+
+### Secrets / Env ###
+.env
+.env.*
+*.local
+application-local.properties
+application-secret.yml
+application-dev.yml
+
+### OS ###
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+### Fichiers generes par le traitement ###
+**/REP/LOG/*
+**/REP/OUT/*
+!**/REP/LOG/.gitkeep
+!**/REP/OUT/.gitkeep
