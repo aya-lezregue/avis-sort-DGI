@@ -1,0 +1,52 @@
+<div class="layout-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="images\poste.png" alt="Barid Al Maghrib" class="sidebar-logo">
+      <div class="sidebar-title">Avis de Sort DGI</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      
+       <a
+  *ngFor="let item of menuItems"
+  [routerLink]="item.route"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: item.route.split('/').length === 2 }"
+  class="nav-item">
+
+  <i class="bi" [ngClass]="item.icon"></i>
+  <span>{{ item.label }}</span>
+
+</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Déconnexion</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-role">{{ roleLabel }}</div>
+      <div class="topbar-user">
+        <div class="user-avatar">{{ username?.charAt(0)?.toUpperCase() }}</div>
+        <span>{{ username }}</span>
+      </div>
+    </header>
+
+    <!-- Contenu de la page -->
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

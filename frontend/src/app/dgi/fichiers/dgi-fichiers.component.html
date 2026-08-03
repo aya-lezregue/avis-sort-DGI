@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h3 class="mb-1">Fichiers reçus</h3>
+    <p class="text-muted mb-0">Fichiers de retour transmis par la Poste.</p>
+  </div>
+  <button class="btn btn-outline-secondary btn-sm" (click)="loadFichiers()">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th>Nom du fichier</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="2" class="text-center py-4 text-muted">Chargement...</td>
+        </tr>
+        <tr *ngIf="!loading && fichiers.length === 0">
+          <td colspan="2" class="text-center py-4 text-muted">Aucun fichier disponible</td>
+        </tr>
+        <tr *ngFor="let fichier of fichiers">
+          <td>
+            <i class="bi bi-file-earmark-spreadsheet text-success me-2"></i>
+            {{ fichier }}
+          </td>
+          <td class="text-end">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              [disabled]="downloadingFile === fichier"
+              (click)="telecharger(fichier)">
+              <span *ngIf="downloadingFile === fichier" class="spinner-border spinner-border-sm me-1"></span>
+              <i class="bi bi-download me-1" *ngIf="downloadingFile !== fichier"></i>
+              Télécharger
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

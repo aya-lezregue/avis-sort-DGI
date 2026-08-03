@@ -1,0 +1,157 @@
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Panneau gauche : branding */
+.brand-panel {
+  flex: 1.1;
+  background: linear-gradient(135deg, #003399 0%, #001a4d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-panel::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 204, 0, 0.08);
+  border-radius: 50%;
+  top: -150px;
+  right: -150px;
+}
+
+.brand-panel::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 204, 0, 0.06);
+  border-radius: 50%;
+  bottom: -100px;
+  left: -80px;
+}
+
+.brand-content {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  color: white;
+}
+
+.brand-logo {
+  height: 90px;
+  margin-bottom: 32px;
+  border-radius: 8px;
+}
+
+.brand-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.brand-subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.brand-features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+}
+
+/* Panneau droit : formulaire */
+.form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 40px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 380px;
+}
+
+.form-title {
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.form-subtitle {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.input-group-text {
+  color: #adb5bd;
+}
+
+.btn-barid {
+  background-color: #003399;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-barid:hover:not(:disabled) {
+  background-color: #002266;
+  color: white;
+}
+
+.btn-barid:disabled {
+  opacity: 0.7;
+}
+
+/* Responsive : empile sur mobile */
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .brand-panel {
+    padding: 40px 30px;
+    min-height: 280px;
+  }
+
+  .brand-title {
+    font-size: 1.5rem;
+  }
+
+  .brand-features {
+    display: none;
+  }
+}

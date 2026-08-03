@@ -1,0 +1,125 @@
+<div class="search-hero">
+  <div class="search-hero-content">
+    <div class="search-hero-icon">
+      <i class="bi bi-file-earmark-check"></i>
+    </div>
+    <h3 class="search-hero-title">Rechercher une attestation</h3>
+    <p class="search-hero-subtitle">Entrez un numéro CAB pour consulter l'état de la notification</p>
+
+    <div class="search-pill">
+      <i class="bi bi-search search-pill-icon"></i>
+      <input
+        type="text"
+        class="search-pill-input"
+        placeholder="Ex : RG277285110MA"
+        [(ngModel)]="numeroCab"
+        (keyup.enter)="rechercher()">
+      <button class="search-pill-btn" [disabled]="searching" (click)="rechercher()">
+        <span *ngIf="searching" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!searching">Rechercher</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="alert-not-found" *ngIf="notFound">
+  <i class="bi bi-exclamation-triangle-fill"></i>
+  <div>
+    <div class="fw-semibold">Aucun dossier trouvé</div>
+    <div class="small text-muted">Vérifiez le numéro CAB saisi et réessayez.</div>
+  </div>
+</div>
+
+<div *ngIf="detail" class="fade-in">
+
+  <!-- Fiche attestation -->
+  <div class="attestation-card mb-3">
+    <div class="attestation-header">
+      <div class="attestation-cab-icon">
+        <i class="bi bi-file-earmark-text-fill"></i>
+      </div>
+      <div>
+        <div class="attestation-cab-label">Numéro CAB</div>
+        <div class="attestation-cab-value">{{ detail.cab.numeroCab }}</div>
+      </div>
+    </div>
+
+    <div class="attestation-grid">
+      <div class="attestation-field">
+        <i class="bi bi-person-fill field-icon"></i>
+        <div>
+          <div class="field-label">Destinataire</div>
+          <div class="field-value">{{ detail.cab.nomDestinataire }}</div>
+        </div>
+      </div>
+
+      <div class="attestation-field">
+        <i class="bi bi-building field-icon"></i>
+        <div>
+          <div class="field-label">Bureau de distribution</div>
+          <div class="field-value">{{ detail.cab.bureauDistribution }}</div>
+        </div>
+      </div>
+
+      <div class="attestation-field full-width">
+        <i class="bi bi-geo-alt-fill field-icon"></i>
+        <div>
+          <div class="field-label">Adresse</div>
+          <div class="field-value">{{ detail.cab.adresse }}</div>
+        </div>
+      </div>
+
+      <div class="attestation-field">
+        <i class="bi bi-hash field-icon"></i>
+        <div>
+          <div class="field-label">N° séquentiel</div>
+          <div class="field-value">{{ detail.cab.numeroSequentiel }}</div>
+        </div>
+      </div>
+
+      <div class="attestation-field">
+        <i class="bi bi-card-text field-icon"></i>
+        <div>
+          <div class="field-label">Identifiant fiscal</div>
+          <div class="field-value">{{ detail.cab.identifiantFiscal }}</div>
+        </div>
+      </div>
+
+      <div class="attestation-field">
+        <i class="bi bi-calendar-event field-icon"></i>
+        <div>
+          <div class="field-label">Date d'échéance</div>
+          <div class="field-value">{{ detail.cab.dateEcheance | date:'dd/MM/yyyy' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Historique -->
+  <div class="card p-4 mb-3" *ngIf="detail.historique?.length">
+    <h6 class="mb-3 d-flex align-items-center gap-2">
+      <i class="bi bi-clock-history"></i> Historique des événements
+    </h6>
+    <ul class="timeline-pro">
+      <li *ngFor="let evt of detail.historique">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="fw-semibold">{{ evt.evenement }}</span>
+          <span class="text-muted small ms-2">{{ evt.dateEvenement | date:'dd/MM/yyyy à HH:mm' }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Cadre etat du sort -->
+  <div class="etat-sort-frame" [ngClass]="etatClass()">
+    <div class="etat-sort-icon-wrap">
+      <i class="bi" [ngClass]="etatIcon()"></i>
+    </div>
+    <div>
+      <div class="etat-sort-label">L'état du sort est :</div>
+      <div class="etat-sort-value">{{ detail.etatActuel }}</div>
+    </div>
+  </div>
+
+</div>

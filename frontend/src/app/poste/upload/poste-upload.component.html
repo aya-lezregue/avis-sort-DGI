@@ -1,0 +1,63 @@
+<h3 class="mb-1">Traiter les fichiers CSV</h3>
+<p class="text-muted mb-4">Fichiers déposés par la DGI, en attente de traitement.</p>
+
+<div class="alert alert-success mb-3" *ngIf="lastResult">
+  <div class="d-flex align-items-start gap-2">
+    <i class="bi bi-check-circle-fill mt-1"></i>
+    <div>
+      <div class="fw-semibold">Traitement terminé : {{ lastResult.nomFichier }}</div>
+      <div class="small mt-1">
+        {{ lastResult.lignesLues }} ligne(s) lue(s) —
+        {{ lastResult.lignesInserees }} insérée(s) —
+        {{ lastResult.lignesDoublons }} doublon(s) —
+        {{ lastResult.lignesIgnorees }} ignorée(s)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-danger mb-3" *ngIf="lastError">
+  <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ lastError }}
+</div>
+
+<div class="card pro-table-card">
+  <div class="table-responsive">
+    <table class="table pro-table mb-0">
+      <thead>
+        <tr>
+          <th>Nom du fichier</th>
+          <th class="text-end">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="2" class="text-center py-5 text-muted">
+            <div class="spinner-border spinner-border-sm me-2"></div> Chargement...
+          </td>
+        </tr>
+        <tr *ngIf="!loading && fichiersEnAttente.length === 0">
+          <td colspan="2" class="text-center py-5 text-muted">
+            <i class="bi bi-check2-circle fs-3 d-block mb-2 text-success"></i>
+            Aucun fichier en attente — tout est traité
+          </td>
+        </tr>
+        <tr *ngFor="let fichier of fichiersEnAttente">
+          <td>
+            <i class="bi bi-file-earmark-spreadsheet text-primary me-2"></i>
+            {{ fichier }}
+          </td>
+          <td class="text-end">
+            <button
+              class="btn btn-sm btn-barid"
+              [disabled]="traitementEnCours === fichier"
+              (click)="traiter(fichier)">
+              <span *ngIf="traitementEnCours === fichier" class="spinner-border spinner-border-sm me-2"></span>
+              <i class="bi bi-upload me-1" *ngIf="traitementEnCours !== fichier"></i>
+              Traiter ce fichier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

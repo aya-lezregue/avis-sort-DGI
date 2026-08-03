@@ -1,0 +1,115 @@
+<div class="welcome-banner mb-4">
+  <div>
+    <h3 class="mb-1">Bonjour, {{ username }} 👋</h3>
+    <p class="text-muted mb-0">Voici un aperçu de l'activité des avis de sort DGI.</p>
+  </div>
+  <div class="welcome-date">
+    {{ today | date:'EEEE d MMMM y':'':'fr' }}
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-icon bg-primary-subtle text-primary">
+        <i class="bi bi-folder2"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ totalCabs }}</div>
+        <div class="stat-label">Dossiers CAB</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-icon bg-warning-subtle text-warning">
+        <i class="bi bi-hourglass-split"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ enAttente }}</div>
+        <div class="stat-label">En attente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-icon bg-success-subtle text-success">
+        <i class="bi bi-check-circle"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ distribues }}</div>
+        <div class="stat-label">Distribués</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="stat-card">
+      <div class="stat-icon bg-danger-subtle text-danger">
+        <i class="bi bi-x-circle"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ retournes + echecs }}</div>
+        <div class="stat-label">Retournés / Échecs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="card p-4 h-100">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0">Derniers dossiers importés</h6>
+        <a routerLink="/admin/cabs" class="small-link">Voir tout <i class="bi bi-arrow-right"></i></a>
+      </div>
+
+      <div *ngIf="loading" class="text-muted small py-3">Chargement...</div>
+
+      <table class="table table-borderless mb-0" *ngIf="!loading">
+        <tbody>
+          <tr *ngFor="let cab of recentCabs">
+            <td class="fw-semibold">{{ cab.numeroCab }}</td>
+            <td class="text-muted small">{{ cab.nomDestinataire }}</td>
+            <td class="text-end">
+              <span class="table-badge" [ngClass]="statutBadgeClass(cab.statut)">
+                {{ cab.statut }}
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="recentCabs.length === 0">
+            <td class="text-muted small text-center py-3">Aucun dossier pour le moment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card p-4 mb-3">
+      <h6 class="mb-3">Taux de distribution</h6>
+      <div class="progress-ring-wrapper">
+        <div class="progress-circle" [style.--pct]="tauxDistribution">
+          <span class="progress-circle-value">{{ tauxDistribution }}%</span>
+        </div>
+        <div class="text-muted small mt-2 text-center">
+          {{ distribues }} sur {{ totalCabs }} dossiers distribués
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4">
+      <h6 class="mb-3">Accès rapide</h6>
+      <div class="d-flex flex-column gap-2">
+        <a routerLink="/admin/cabs" class="quick-link">
+          <i class="bi bi-folder"></i> Gérer les dossiers CAB
+        </a>
+        <a routerLink="/admin/users" class="quick-link">
+          <i class="bi bi-people"></i> Gérer les utilisateurs ({{ totalUsers }})
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

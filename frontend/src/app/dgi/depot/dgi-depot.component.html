@@ -1,0 +1,57 @@
+<h3 class="mb-1">Déposer un fichier</h3>
+<p class="text-muted mb-4">Déposez le fichier CSV à transmettre à la Poste.</p>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h6 class="mb-3">Nouveau dépôt</h6>
+
+      <div class="upload-zone mb-3">
+        <input
+          type="file"
+          id="fileInput"
+          accept=".csv"
+          (change)="onFileSelected($event)"
+          hidden>
+        <label for="fileInput" class="upload-label">
+          <i class="bi bi-cloud-arrow-up"></i>
+          <span *ngIf="!selectedFile">Cliquez pour sélectionner un fichier CSV</span>
+          <span *ngIf="selectedFile" class="fw-semibold">{{ selectedFile.name }}</span>
+        </label>
+      </div>
+
+      <button
+        class="btn btn-primary w-100"
+        [disabled]="!selectedFile || uploading"
+        (click)="deposer()">
+        <span *ngIf="uploading" class="spinner-border spinner-border-sm me-2"></span>
+        Déposer le fichier
+      </button>
+
+      <div class="alert alert-success py-2 small mt-3" *ngIf="resultMessage">
+        <i class="bi bi-check-circle me-1"></i> {{ resultMessage }}
+      </div>
+      <div class="alert alert-danger py-2 small mt-3" *ngIf="resultError">
+        {{ resultError }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h6 class="mb-3">Fichiers en attente de traitement</h6>
+
+      <div *ngIf="loadingList" class="text-muted small">Chargement...</div>
+
+      <ul class="list-group list-group-flush" *ngIf="!loadingList">
+        <li class="list-group-item px-0 d-flex align-items-center gap-2" *ngFor="let fichier of fichiersEnAttente">
+          <i class="bi bi-file-earmark-text text-primary"></i>
+          <span class="small">{{ fichier }}</span>
+        </li>
+        <li class="list-group-item px-0 text-muted small" *ngIf="fichiersEnAttente.length === 0">
+          Aucun fichier en attente
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

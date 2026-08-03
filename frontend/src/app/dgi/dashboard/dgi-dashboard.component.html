@@ -1,0 +1,84 @@
+<div class="welcome-banner mb-4">
+  <div>
+    <h3 class="mb-1">Bonjour, {{ username }} 👋</h3>
+    <p class="text-muted mb-0">Espace Direction Générale des Impôts — Suivi des flux d'avis de sort.</p>
+  </div>
+  <div class="welcome-date">
+    {{ today | date:'EEEE d MMMM y':'':'fr' }}
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <div class="stat-card-lg">
+      <div class="stat-icon-lg bg-warning-subtle text-warning">
+        <i class="bi bi-hourglass-split"></i>
+      </div>
+      <div class="flex-grow-1">
+        <div class="stat-value-lg">{{ fichiersEnAttente }}</div>
+        <div class="stat-label-lg">Fichiers en attente de traitement</div>
+        <div class="stat-sub">Déposés, en cours de traitement par la Poste</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="stat-card-lg">
+      <div class="stat-icon-lg bg-success-subtle text-success">
+        <i class="bi bi-file-earmark-arrow-down"></i>
+      </div>
+      <div class="flex-grow-1">
+        <div class="stat-value-lg">{{ fichiersDisponibles }}</div>
+        <div class="stat-label-lg">Fichiers de retour disponibles</div>
+        <div class="stat-sub">Prêts à être téléchargés</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card p-4">
+  <h6 class="mb-3 d-flex align-items-center gap-2">
+    <i class="bi bi-lightning-charge-fill text-warning"></i>
+    Accès rapide
+  </h6>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <a routerLink="/dgi/depot" class="quick-action-card">
+        <div class="quick-action-icon bg-primary-subtle text-primary">
+          <i class="bi bi-cloud-upload"></i>
+        </div>
+        <div>
+          <div class="quick-action-title">Déposer un fichier</div>
+          <div class="quick-action-desc">Envoyer un CSV à la Poste</div>
+        </div>
+        <i class="bi bi-chevron-right quick-action-arrow"></i>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a routerLink="/dgi/recherche" class="quick-action-card">
+        <div class="quick-action-icon bg-info-subtle text-info">
+          <i class="bi bi-search"></i>
+        </div>
+        <div>
+          <div class="quick-action-title">Rechercher une attestation</div>
+          <div class="quick-action-desc">Consulter un dossier par CAB</div>
+        </div>
+        <i class="bi bi-chevron-right quick-action-arrow"></i>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a routerLink="/dgi/fichiers" class="quick-action-card">
+        <div class="quick-action-icon bg-success-subtle text-success">
+          <i class="bi bi-file-earmark-arrow-down"></i>
+        </div>
+        <div>
+          <div class="quick-action-title">Fichiers reçus</div>
+          <div class="quick-action-desc">Télécharger les retours Poste</div>
+        </div>
+        <i class="bi bi-chevron-right quick-action-arrow"></i>
+      </a>
+    </div>
+  </div>
+</div>
