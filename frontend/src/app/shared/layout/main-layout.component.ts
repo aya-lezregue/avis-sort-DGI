@@ -26,7 +26,7 @@ constructor(
   get roleLabel(): string {
     switch (this.role) {
       case 'ADMIN_POSTE': return 'Administrateur Poste';
-      case 'USER_POSTE': return 'Agent Poste';
+      case 'USER_POSTE': return 'Tech';
       case 'DGI_USER': return 'Agent DGI';
       default: return '';
     }
@@ -62,4 +62,11 @@ constructor(
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  goToProfile(): void {
+  switch (this.role) {
+    case 'ADMIN_POSTE': this.router.navigate(['/admin/profil']); break;
+    case 'USER_POSTE': this.router.navigate(['/poste/profil']); break;
+    case 'DGI_USER': this.router.navigate(['/dgi/profil']); break;
+  }
+}
 }

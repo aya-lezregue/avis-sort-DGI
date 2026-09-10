@@ -50,4 +50,8 @@ export class CabService {
 traiterFichier(nomFichier: string): Observable<CsvImportResult> {
   return this.http.post<CsvImportResult>(`${this.API_URL}/traiter/${nomFichier}`, {});
 }
+
+downloadAttestationPdf(numeroCab: string): Observable<Blob> {
+  return this.http.get(`${this.API_URL}/numero/${numeroCab}/attestation/pdf`, { responseType: 'blob' });
+}
 }

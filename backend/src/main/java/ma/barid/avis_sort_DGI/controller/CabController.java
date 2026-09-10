@@ -1,12 +1,17 @@
 package ma.barid.avis_sort_DGI.controller;
 
+import com.lowagie.text.DocumentException;
 import ma.barid.avis_sort_DGI.dto.CabDetailResponse;
 import ma.barid.avis_sort_DGI.dto.CsvImportResult;
 import ma.barid.avis_sort_DGI.entity.Cab;
+import ma.barid.avis_sort_DGI.entity.EvenementCab;
+import ma.barid.avis_sort_DGI.service.AttestationPdfService;
 import ma.barid.avis_sort_DGI.service.CabService;
 import ma.barid.avis_sort_DGI.service.CsvImportService;
 import ma.barid.avis_sort_DGI.service.EvenementCabService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -95,6 +100,23 @@ public class CabController {
         return ResponseEntity.ok(
                 cabService.updateStatutByNumeroCab(numeroCab, statut)
         );
+    }
+
+    @Autowired
+    private AttestationPdfService attestationPdfService;
+
+    @GetMapping("/numero/{numeroCab}/attestation/pdf")
+    public ResponseEntity<byte[]> genererAttestationPdf(@PathVariable String numeroCab) throws Exception {
+        Cab cab = cabService.getCabByNumeroCab(numeroCab)
+                .orElseThrow(() -> new RuntimeException("CAB non trouvé : " + numeroCab));
+
+        List<EvenementCab> historique = evenementCabService.getEvenementsByCabId(cab.getId());
+        byte[] pdf = attestationPdfService.genererAttestation(cab, historique);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"attestation_" + numeroCab + ".pdf\"")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
     }
 
 }

@@ -34,6 +34,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/register").hasRole("ADMIN_POSTE")
+                        .requestMatchers("/api/users/me").authenticated()
+                        .requestMatchers("/api/users/change-password").authenticated()
                         .requestMatchers("/api/users/**").hasRole("ADMIN_POSTE")
                         .requestMatchers(HttpMethod.DELETE, "/api/cabs/**").hasRole("ADMIN_POSTE")
                         .requestMatchers(HttpMethod.POST, "/api/depot/csv").hasAnyRole("DGI_USER", "ADMIN_POSTE")

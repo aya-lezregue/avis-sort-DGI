@@ -34,66 +34,72 @@
 
   <!-- Fiche attestation -->
   <div class="attestation-card mb-3">
-    <div class="attestation-header">
-      <div class="attestation-cab-icon">
-        <i class="bi bi-file-earmark-text-fill"></i>
+  <div class="attestation-header">
+    <div class="attestation-cab-icon">
+      <i class="bi bi-file-earmark-text-fill"></i>
+    </div>
+    <div>
+      <div class="attestation-cab-label">Numéro CAB</div>
+      <div class="attestation-cab-value">{{ detail.cab.numeroCab }}</div>
+    </div>
+  </div>
+
+  <div class="attestation-body">
+    <div class="attestation-row">
+      <div class="attestation-item">
+        <div class="attestation-item-icon"><i class="bi bi-person-fill"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">Destinataire</span>
+          <span class="field-value">{{ detail.cab.nomDestinataire }}</span>
+        </div>
       </div>
-      <div>
-        <div class="attestation-cab-label">Numéro CAB</div>
-        <div class="attestation-cab-value">{{ detail.cab.numeroCab }}</div>
+
+      <div class="attestation-item">
+        <div class="attestation-item-icon"><i class="bi bi-building"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">Bureau de distribution</span>
+          <span class="field-value">{{ detail.cab.bureauDistribution }}</span>
+        </div>
       </div>
     </div>
 
-    <div class="attestation-grid">
-      <div class="attestation-field">
-        <i class="bi bi-person-fill field-icon"></i>
-        <div>
-          <div class="field-label">Destinataire</div>
-          <div class="field-value">{{ detail.cab.nomDestinataire }}</div>
+    <div class="attestation-row">
+      <div class="attestation-item full">
+        <div class="attestation-item-icon"><i class="bi bi-geo-alt-fill"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">Adresse</span>
+          <span class="field-value">{{ detail.cab.adresse }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="attestation-row three">
+      <div class="attestation-item">
+        <div class="attestation-item-icon"><i class="bi bi-hash"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">N° séquentiel</span>
+          <span class="field-value">{{ detail.cab.numeroSequentiel }}</span>
         </div>
       </div>
 
-      <div class="attestation-field">
-        <i class="bi bi-building field-icon"></i>
-        <div>
-          <div class="field-label">Bureau de distribution</div>
-          <div class="field-value">{{ detail.cab.bureauDistribution }}</div>
+      <div class="attestation-item">
+        <div class="attestation-item-icon"><i class="bi bi-card-text"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">Identifiant fiscal</span>
+          <span class="field-value">{{ detail.cab.identifiantFiscal }}</span>
         </div>
       </div>
 
-      <div class="attestation-field full-width">
-        <i class="bi bi-geo-alt-fill field-icon"></i>
-        <div>
-          <div class="field-label">Adresse</div>
-          <div class="field-value">{{ detail.cab.adresse }}</div>
-        </div>
-      </div>
-
-      <div class="attestation-field">
-        <i class="bi bi-hash field-icon"></i>
-        <div>
-          <div class="field-label">N° séquentiel</div>
-          <div class="field-value">{{ detail.cab.numeroSequentiel }}</div>
-        </div>
-      </div>
-
-      <div class="attestation-field">
-        <i class="bi bi-card-text field-icon"></i>
-        <div>
-          <div class="field-label">Identifiant fiscal</div>
-          <div class="field-value">{{ detail.cab.identifiantFiscal }}</div>
-        </div>
-      </div>
-
-      <div class="attestation-field">
-        <i class="bi bi-calendar-event field-icon"></i>
-        <div>
-          <div class="field-label">Date d'échéance</div>
-          <div class="field-value">{{ detail.cab.dateEcheance | date:'dd/MM/yyyy' }}</div>
+      <div class="attestation-item">
+        <div class="attestation-item-icon"><i class="bi bi-calendar-event"></i></div>
+        <div class="attestation-item-text">
+          <span class="field-label">Date d'échéance</span>
+          <span class="field-value">{{ detail.cab.dateEcheance | date:'dd/MM/yyyy' }}</span>
         </div>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Historique -->
   <div class="card p-4 mb-3" *ngIf="detail.historique?.length">
@@ -121,5 +127,13 @@
       <div class="etat-sort-value">{{ detail.etatActuel }}</div>
     </div>
   </div>
+
+  <div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-barid" [disabled]="downloadingPdf" (click)="telechargerAttestation()">
+    <span *ngIf="downloadingPdf" class="spinner-border spinner-border-sm me-2"></span>
+    <i class="bi bi-file-earmark-pdf me-2" *ngIf="!downloadingPdf"></i>
+    Télécharger l'attestation (PDF)
+  </button>
+</div>
 
 </div>

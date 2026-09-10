@@ -535,3 +535,201 @@
   margin-left: auto;
   font-size: 0.9rem;
 }
+/* ===== Fiche attestation - version pro et responsive ===== */
+.attestation-card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.attestation-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #003399 0%, #001a4d 100%);
+  color: white;
+  padding: 20px 24px;
+}
+
+.attestation-cab-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.attestation-cab-label {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.attestation-cab-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.attestation-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.attestation-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.attestation-row.three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.attestation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+
+.attestation-item.full {
+  grid-column: 1 / -1;
+}
+
+.attestation-item-icon {
+  width: 34px;
+  height: 34px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #003399;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.attestation-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.attestation-item-text .field-label {
+  font-size: 0.7rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.attestation-item-text .field-value {
+  font-size: 0.9rem;
+  color: #212529;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  .attestation-row,
+  .attestation-row.three {
+    grid-template-columns: 1fr;
+  }
+
+  .attestation-body {
+    padding: 16px;
+  }
+}
+/* ===== Profil - version pleine largeur ===== */
+.profile-card {
+  background: linear-gradient(135deg, #003399 0%, #001a4d 100%);
+  border-radius: 14px;
+  padding: 36px 24px;
+  text-align: center;
+  color: white;
+}
+
+.profile-avatar-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0 auto 16px;
+}
+
+.profile-card h4 {
+  color: white;
+}
+
+.profile-status {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-info-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 16px;
+  height: 100%;
+}
+
+.profile-info-icon {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #003399;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.btn-status-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #eef2fb;
+  color: #003399;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-status-edit i {
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.btn-status-edit:hover {
+  background: #003399;
+  color: white;
+}
+
+.btn-status-edit:hover i {
+  transform: rotate(180deg);
+}

@@ -7,3 +7,7 @@ export interface UserResponse {
   role: Role;
   actif: boolean;
 }
+export interface ChangePasswordRequest {
+  ancienMotDePasse: string;
+  nouveauMotDePasse: string;
+}

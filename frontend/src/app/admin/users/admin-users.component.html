@@ -36,7 +36,7 @@
           <td class="text-muted">{{ user.email }}</td>
           <td>
             <span class="table-badge" [ngClass]="roleBadgeClass(user.role)">
-              {{ user.role }}
+              {{ roleLabel(user.role) }}
             </span>
           </td>
           <td>
@@ -79,7 +79,7 @@
         <label class="form-label">Rôle</label>
         <select class="form-select" [(ngModel)]="newRole" name="newRole">
           <option value="ADMIN_POSTE">Administrateur Poste</option>
-          <option value="USER_POSTE">Agent Poste</option>
+          <option value="USER_POSTE"> Tech </option>
           <option value="DGI_USER">Agent DGI</option>
         </select>
       </div>

@@ -11,6 +11,7 @@ import { DgiDashboardComponent } from './dgi/dashboard/dgi-dashboard.component';
 import { DgiDepotComponent } from './dgi/depot/dgi-depot.component';
 import { DgiRechercheComponent } from './dgi/recherche/dgi-recherche.component';
 import { DgiFichiersComponent } from './dgi/fichiers/dgi-fichiers.component';
+import { ProfileComponent } from './shared/profile/profile.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
@@ -25,7 +26,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: AdminDashboardComponent },
       { path: 'cabs', component: AdminCabsComponent },
-      { path: 'users', component: AdminUsersComponent }
+      { path: 'users', component: AdminUsersComponent },
+      { path: 'profil', component: ProfileComponent }
     ]
   },
 
@@ -36,7 +38,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: PosteDashboardComponent },
       { path: 'cabs', component: PosteCabsComponent },
-      { path: 'upload', component: PosteUploadComponent }
+      { path: 'upload', component: PosteUploadComponent },
+      { path: 'profil', component: ProfileComponent }
     ]
   },
 
@@ -48,7 +51,8 @@ export const routes: Routes = [
       { path: '', component: DgiDashboardComponent },
       { path: 'depot', component: DgiDepotComponent },
       { path: 'recherche', component: DgiRechercheComponent },
-      { path: 'fichiers', component: DgiFichiersComponent }
+      { path: 'fichiers', component: DgiFichiersComponent },
+      { path: 'profil', component: ProfileComponent }
     ]
   },
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserResponse } from '../models/user.model';
 import { RegisterRequest } from '../models/auth.model';
+import { ChangePasswordRequest } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -25,4 +26,10 @@ export class UserService {
   create(request: RegisterRequest): Observable<string> {
     return this.http.post(`http://localhost:8080/api/auth/register`, request, { responseType: 'text' });
   }
+  getCurrentUser(): Observable<UserResponse> {
+  return this.http.get<UserResponse>(`${this.API_URL}/me`);
+}
+changePassword(request: ChangePasswordRequest): Observable<string> {
+  return this.http.put(`${this.API_URL}/change-password`, request, { responseType: 'text' });
+}
 }

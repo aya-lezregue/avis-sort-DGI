@@ -1,7 +1,9 @@
 package ma.barid.avis_sort_DGI.controller;
 
+import ma.barid.avis_sort_DGI.dto.ChangePasswordRequest;
 import ma.barid.avis_sort_DGI.dto.UserResponse;
 import ma.barid.avis_sort_DGI.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +32,22 @@ public class UserController {
     @PutMapping("/{id}/actif")
     public ResponseEntity<UserResponse> toggleActif(@PathVariable Long id) {
         return ResponseEntity.ok(userService.toggleActif(id));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
+        String username = authentication.getName();
+        return userService.getByUsername(username)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(
+            Authentication authentication,
+            @RequestBody ChangePasswordRequest request) {
+
+        String username = authentication.getName();
+        userService.changerMotDePasse(username, request);
+        return ResponseEntity.ok("Mot de passe modifié avec succès");
     }
 }

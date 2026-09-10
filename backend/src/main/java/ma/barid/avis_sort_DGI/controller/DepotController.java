@@ -1,6 +1,7 @@
 package ma.barid.avis_sort_DGI.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 @RestController
 @RequestMapping("/api/depot")
@@ -19,20 +19,39 @@ public class DepotController {
     @Value("${rep.in}")
     private String inPath;
 
+    @Value("${rep.archive}")
+    private String archivePath;
+
     @PostMapping("/csv")
     public ResponseEntity<String> deposerFichier(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Fichier vide");
         }
+
         File dossier = new File(inPath);
         if (!dossier.exists()) dossier.mkdirs();
 
-        Path destination = Path.of(inPath, file.getOriginalFilename());
-        Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+        String nomFichier = file.getOriginalFilename();
+        Path destination = Path.of(inPath, nomFichier);
 
-        return ResponseEntity.ok("Fichier depose : " + file.getOriginalFilename());
+        if (Files.exists(destination)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Un fichier nommé \"" + nomFichier + "\" est déjà en attente de traitement. " +
+                            "Renommez votre fichier ou attendez qu'il soit traité par la Poste.");
+        }
+
+        Path destinationArchive = Path.of(archivePath, nomFichier);
+        if (Files.exists(destinationArchive)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Un fichier nommé \"" + nomFichier + "\" a déjà été traité précédemment (archivé). " +
+                            "Si ce sont de nouvelles données, renommez le fichier.");
+        }
+
+        Files.copy(file.getInputStream(), destination);
+
+        return ResponseEntity.ok("Fichier deposé : " + nomFichier);
     }
-//les fichiers qui se trouve dans rep/in
+
     @GetMapping("/pending")
     public ResponseEntity<String[]> fichiersEnAttente() {
         File dossier = new File(inPath);

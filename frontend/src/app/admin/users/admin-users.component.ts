@@ -54,27 +54,27 @@ export class AdminUsersComponent implements OnInit {
     this.showCreateModal = false;
   }
 
-submitCreate(): void {
-  this.createError = '';
-  this.creating = true;
+  submitCreate(): void {
+    this.createError = '';
+    this.creating = true;
 
-  this.userService.create({
-    username: this.newUsername,
-    email: this.newEmail,
-    role: this.newRole
-  }).subscribe({
-    next: (message) => {
-      this.creating = false;
-      this.closeCreateModal();
-      this.loadUsers();
-      alert(message); // confirme que l'email a bien ete envoye
-    },
-    error: (err) => {
-      this.creating = false;
-      this.createError = err.error || 'Erreur lors de la création';
-    }
-  });
-}
+    this.userService.create({
+      username: this.newUsername,
+      email: this.newEmail,
+      role: this.newRole
+    }).subscribe({
+      next: (message) => {
+        this.creating = false;
+        this.closeCreateModal();
+        this.loadUsers();
+        alert(message); // confirme que l'email a bien ete envoye
+      },
+      error: (err) => {
+        this.creating = false;
+        this.createError = err.error || 'Erreur lors de la création';
+      }
+    });
+  }
 
   toggleActif(user: UserResponse): void {
     this.userService.toggleActif(user.id).subscribe({
@@ -96,6 +96,15 @@ submitCreate(): void {
       case 'USER_POSTE': return 'bg-info-subtle text-info';
       case 'DGI_USER': return 'bg-warning-subtle text-warning';
       default: return 'bg-secondary-subtle text-secondary';
+    }
+  }
+
+  roleLabel(role: string): string {
+    switch (role) {
+      case 'ADMIN_POSTE': return 'Administrateur Poste';
+      case 'USER_POSTE': return 'Tech';
+      case 'DGI_USER': return 'Agent DGI';
+      default: return role;
     }
   }
 }

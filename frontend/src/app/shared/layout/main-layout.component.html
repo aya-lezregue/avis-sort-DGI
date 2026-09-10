@@ -36,7 +36,7 @@
     <!-- Topbar -->
     <header class="topbar">
       <div class="topbar-role">{{ roleLabel }}</div>
-      <div class="topbar-user">
+        <div class="topbar-user" (click)="goToProfile()" style="cursor: pointer;">
         <div class="user-avatar">{{ username?.charAt(0)?.toUpperCase() }}</div>
         <span>{{ username }}</span>
       </div>

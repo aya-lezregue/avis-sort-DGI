@@ -55,4 +55,27 @@ export class DgiRechercheComponent {
       default: return 'bi-hourglass-split';
     }
   }
+
+  downloadingPdf = false;
+
+telechargerAttestation(): void {
+  if (!this.detail) return;
+
+  this.downloadingPdf = true;
+  this.cabService.downloadAttestationPdf(this.detail.cab.numeroCab).subscribe({
+    next: (blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `attestation_${this.detail!.cab.numeroCab}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+      this.downloadingPdf = false;
+    },
+    error: () => {
+      this.downloadingPdf = false;
+      alert("Erreur lors de la génération du PDF");
+    }
+  });
+}
 }
